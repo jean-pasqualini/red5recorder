@@ -9,35 +9,7 @@
 				<mx:Canvas label="player" width="100%" height="100%">
 							<mx:VideoDisplay id="videoPlayer"  mouseMove="rollOver(event)" mouseOut="rollOut(event)"
 								 complete="videoIsComplete()" autoBandWidthDetection="false" width="100%" x="0" height="100%" y="0"/>
-							<mx:Image right="0" top="0" id="logo_img0" complete="smoothImage(event)"  autoLoad="true" scaleContent="true" source="{myRecorder.logo}"/>
-							<mx:Panel id="videoOptionsPanel" layout="absolute" verticalScrollPolicy="off" horizontalScrollPolicy="off" cornerRadius="0" roundedBottomCorners="true" backgroundColor="#FFFFFF" borderThicknessLeft="0" borderThicknessRight="0" borderThicknessTop="5" borderThicknessBottom="0" headerHeight="0" 
-								
-								height="40" alpha="0.8" bottom="0" borderStyle="solid" backgroundAlpha="0.6" width="100%" x="0">    
-							
-							<mx:ProgressBar id="loadProgress" label="" mode="event" barColor="#00ff00"
-							 minimum="0" maximum="{videoPlayer.totalTime}" height="3"
-							 source="{ videoPlayer}" trackHeight="7"  left="80" right="93" bottom="3"/>
-							
-							<mx:HSlider id="position" height="10"   dataTipFormatFunction="formatPositionToolTip"  slideDuration="0"
-							 value="{videoPlayer.playheadTime}" 	 minWidth="10"   minimum="0" maximum="{videoPlayer.totalTime}" left="80" right="93" bottom="10" showTrackHighlight="true"
-							  styleName="scrollBar" thumbPress="thumbPressed()" thumbRelease="thumbReleased()"
-							 
-							mouseDown="thumbClicked(event)" allowTrackClick="true"/> 
-							
-							<mx:Button id="playPauseBut" click="play();" width="35" height="25" cornerRadius="5" left="0" bottom="0" styleName="playButton" toggle="true" toolTip="Play/Pause"/>
-							<mx:Button id="stopBut" styleName="arial10E" left="38" width="35" height="25" cornerRadius="5" bottom="0" 	 toolTip="Stop" click="stopVideo()" icon="@Embed(source='assets/player_stop.png')"/>
-							
-							<gauge:Gauge id="volume" gaugeClick="handleGaugeEvent(event)" liveDragging="true" right="45" bottom="0" width="40" height="25" needleThickness="0.3" coverColor="#0000FF" coverAlpha="0.8" 
-								coverDropShadowEnabled="false"  visible="true"/>
-							<mx:Label y="-2" text="{formatPositionToolTip(videoPlayer.playheadTime)} / {formatPositionToolTip(videoPlayer.totalTime)}" width="141" id="timer_txt" styleName="arial10E" horizontalCenter="0" textAlign="center"/>
-							<mx:Button click="fullScreen()" icon="@Embed(source='assets/window_fullscreen.png')" toolTip="Full Screen" width="35" id="fullScreen_btn0" visible="{myRecorder.fullScreen}" right="4" height="25" y="5"/>
-							
-							
-							</mx:Panel>
 						</mx:Canvas>
-			</mx:AddChild>
-			<mx:AddChild position="lastChild">
-				<mx:Button x="0" y="0" label="{myRecorder.backText}" icon="@Embed(source='assets/back.png')" click="stopVideo();currentState=&quot;&quot;" fontWeight="normal" styleName="arial12E" visible="{myRecorder.backToRecorder}"/>
 			</mx:AddChild>
 			<mx:SetProperty name="width" value="100%"/>
 			<mx:SetProperty name="height" value="100%"/>

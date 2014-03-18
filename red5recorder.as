@@ -150,6 +150,8 @@ public function init():void {
 }
 
 private function recClicked():void {
+        stopVideo();
+        currentState="";
 		recordingTimer.start();
 		recordStart();
 }
@@ -160,8 +162,7 @@ private function stopClicked():void {
 }
 
 private function videoIsComplete():void {
-	playPauseBut.selected=true;
-	play();
+	stopVideo();
 }
 private function thumbClicked(e:MouseEvent):void {
 	videoPlayer.playheadTime = position.value;	
