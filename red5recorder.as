@@ -179,6 +179,10 @@ public function stopVideo():void {
 	var s:String = myRecorder.server+myRecorder.fileName+".flv";
 	videoPlayer.source = s;
 	videoPlayer.stop();
+
+    if (ExternalInterface.available) {
+        ExternalInterface.call("camcorderMovieStoped", myRecorder.fileName);
+    }
 }
 private function replay():void {
 	currentState="player";
