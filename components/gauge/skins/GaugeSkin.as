@@ -15,6 +15,7 @@ package components.gauge.skins
 	
 	import flash.filters.BevelFilter;
 	import mx.utils.ColorUtil;
+    import mx.core.FlexGlobals;
 
 	public class GaugeSkin extends Border
 	{
@@ -22,10 +23,10 @@ package components.gauge.skins
 		{
 			super();
 		}
-		
+
 		/**
 		 * updateDisplayList
-		 * 
+		 *
 		 * This method is where the skin is actually drawn. Note that its colors, etc.
 		 * are taken from the styles set on its parent - the Gauge component itself.
 		 * Any style that has not been set is given a default value.
@@ -34,27 +35,27 @@ package components.gauge.skins
 		override protected function updateDisplayList( w:Number, h:Number ) : void
 		{
 			var bgColor:Number = getStyle("backgroundColor");
-			if( isNaN(bgColor) || !StyleManager.isValidStyleValue(bgColor)) bgColor = 0xFFFFFF;
+			if( isNaN(bgColor) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(bgColor)) bgColor = 0xFFFFFF;
 			var bgAlpha:Number = getStyle("backgroundAlpha");
-			if( isNaN(bgAlpha) || !StyleManager.isValidStyleValue(bgAlpha) ) bgAlpha = .85;
+			if( isNaN(bgAlpha) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(bgAlpha) ) bgAlpha = .85;
 			var borderColor:Number = getStyle("borderColor");
-			if( isNaN(borderColor) || !StyleManager.isValidStyleValue(borderColor) ) borderColor = 0x606060;
+			if( isNaN(borderColor) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(borderColor) ) borderColor = 0x606060;
 			var borderAlpha:Number = getStyle("borderAlpha");
-			if( isNaN(borderAlpha) || !StyleManager.isValidStyleValue(borderAlpha) ) borderAlpha = 1;
+			if( isNaN(borderAlpha) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(borderAlpha) ) borderAlpha = 1;
 			var borderSize:Number = getStyle("borderThickness");
-			if( isNaN(borderSize) || !StyleManager.isValidStyleValue(borderSize) ) borderSize = 1;
+			if( isNaN(borderSize) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(borderSize) ) borderSize = 1;
 			var needleColor:Number = getStyle("needleColor");
-			if( isNaN(needleColor) || !StyleManager.isValidStyleValue(needleColor) ) needleColor = 0x000000;
+			if( isNaN(needleColor) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(needleColor) ) needleColor = 0x000000;
 			var needleThickness:Number = getStyle("needleThickness");
-			if( isNaN(needleThickness) || !StyleManager.isValidStyleValue(needleThickness) ) needleThickness = 3;
+			if( isNaN(needleThickness) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(needleThickness) ) needleThickness = 3;
 			var needleAlpha:Number = getStyle("needleAlpha");
-			if( isNaN(needleAlpha) || !StyleManager.isValidStyleValue(needleAlpha) ) needleAlpha = 1;
+			if( isNaN(needleAlpha) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(needleAlpha) ) needleAlpha = 1;
 			var coverColor:Number = getStyle("coverColor");
-			if( isNaN(coverColor) || !StyleManager.isValidStyleValue(coverColor) ) coverColor = 0x606060;
+			if( isNaN(coverColor) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(coverColor) ) coverColor = 0x606060;
 			var coverAlpha:Number = getStyle("coverAlpha");
-			if( isNaN(coverAlpha) || !StyleManager.isValidStyleValue(coverAlpha) ) coverAlpha = 1;
+			if( isNaN(coverAlpha) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(coverAlpha) ) coverAlpha = 1;
 			var coverDropShadowEnabled:Boolean = getStyle("coverDropShadowEnabled");
-			//if( isNaN(coverDropShadowEnabled) || !StyleManager.isValidStyleValue(coverDropShadowEnabled) ) coverDropShadowEnabled = true;
+			//if( isNaN(coverDropShadowEnabled) || !FlexGlobals.topLevelApplication.styleManager.isValidStyleValue(coverDropShadowEnabled) ) coverDropShadowEnabled = true;
 			
 			var g:Graphics = graphics;
 			

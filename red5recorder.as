@@ -1,6 +1,7 @@
 // ActionScript file
 import components.gauge.events.GaugeEvent;
 
+import flash.external.ExternalInterface;
 import flash.display.Bitmap;
 import flash.media.Camera;
 import flash.net.URLRequest;
@@ -8,8 +9,8 @@ import flash.net.navigateToURL;
 import flash.utils.Timer;
 
 import mx.controls.Alert;
-import mx.core.Application;
-
+//import mx.core.Application;
+import mx.core.FlexGlobals;
 
 NetConnection.defaultObjectEncoding = flash.net.ObjectEncoding.AMF3;
 SharedObject.defaultObjectEncoding  = flash.net.ObjectEncoding.AMF3;
@@ -35,7 +36,7 @@ private function smoothImage(evt:Event):void{
 }
 
 public function fullScreenHandler(evt:FullScreenEvent):void {
-	//dispState = Application.application.stage.displayState;
+	//dispState = FlexGlobals.topLevelApplication.stage.displayState;
 	return;
     if (evt.fullScreen) {
     } else {
@@ -55,16 +56,16 @@ public function fullScreenHandler(evt:FullScreenEvent):void {
 private function fullScreen():void {
 
 	try {
-    	switch (Application.application.stage.displayState) {
+    	switch (FlexGlobals.topLevelApplication.stage.displayState) {
         	case StageDisplayState.FULL_SCREEN:
             	/* If already in full screen mode, switch to normal mode. */
-            	Application.application.stage.fullScreenSourceRect = new Rectangle (0,0,myRecorder.width,myRecorder.height);
-            	Application.application.stage.displayState = StageDisplayState.NORMAL;                            
+            	FlexGlobals.topLevelApplication.stage.fullScreenSourceRect = new Rectangle (0,0,myRecorder.width,myRecorder.height);
+            	FlexGlobals.topLevelApplication.stage.displayState = StageDisplayState.NORMAL;
             	break;
             default:
             	/* If not in full screen mode, switch to full screen mode. */
-            	Application.application.stage.fullScreenSourceRect = new Rectangle (0,0,320,240); 
-                Application.application.stage.displayState = StageDisplayState.FULL_SCREEN;
+            	FlexGlobals.topLevelApplication.stage.fullScreenSourceRect = new Rectangle (0,0,320,240);
+                FlexGlobals.topLevelApplication.stage.displayState = StageDisplayState.FULL_SCREEN;
                 //Alert.show("full screen");
 				break;
 		}
@@ -77,34 +78,34 @@ public function init():void {
 	myRecorder = new Recorder();
 	
 	if (DEBUG) {
-		Application.application.parameters.server="rtmp://192.168.1.10/red5recorder/";
-		Application.application.parameters.fileName="video";
-		Application.application.parameters.mode="player";
-		Application.application.parameters.logo ="fspace.png";
-		Application.application.parameters.fullScreen=true;
+		FlexGlobals.topLevelApplication.parameters.server="rtmp://192.168.1.10/red5recorder/";
+		FlexGlobals.topLevelApplication.parameters.fileName="video";
+		FlexGlobals.topLevelApplication.parameters.mode="player";
+		FlexGlobals.topLevelApplication.parameters.logo ="fspace.png";
+		FlexGlobals.topLevelApplication.parameters.fullScreen=true;
 	}	
 	
 	// get parameters
-	if(Application.application.parameters.maxLength!=null) myRecorder.maxLength= Application.application.parameters.maxLength;
-	if(Application.application.parameters.fileName!=null) myRecorder.fileName = Application.application.parameters.fileName;
-	if(Application.application.parameters.width!=null) myRecorder.width= Application.application.parameters.width;
-	if(Application.application.parameters.height!=null) myRecorder.height= Application.application.parameters.height;
-	if(Application.application.parameters.server!=null) myRecorder.server= Application.application.parameters.server;
-	if(Application.application.parameters.fps!=null) myRecorder.fps= Application.application.parameters.fps;
-	if(Application.application.parameters.microRate!=null) myRecorder.microRate= Application.application.parameters.microRate;
-	if(Application.application.parameters.showVolume!=null) myRecorder.showVolume = (Application.application.parameters.showVolume=="true" || Application.application.parameters.showVolume==1);
-	if(Application.application.parameters.recordingText!=null) myRecorder.recordingText= Application.application.parameters.recordingText;
-	if(Application.application.parameters.timeLeftText!=null) myRecorder.timeLeftText= Application.application.parameters.timeLeftText;
-	if(Application.application.parameters.timeLeft!=null) myRecorder.timeLeft= Application.application.parameters.timeLeft;
-	if(Application.application.parameters.mode!=null) myRecorder.mode= Application.application.parameters.mode;
-	if(Application.application.parameters.backToRecorder!=null) myRecorder.backToRecorder = (Application.application.parameters.backToRecorder=="true" || Application.application.parameters.backToRecorder==1);
-	if(Application.application.parameters.backText!=null) myRecorder.backText= Application.application.parameters.backText;
-	if(Application.application.parameters.noVideo!=null) myRecorder.noVideo= (Application.application.parameters.noVideo=="true" || Application.application.parameters.noVideo==1);
-	if(Application.application.parameters.quality!=null) myRecorder.quality= Application.application.parameters.quality;
-	if(Application.application.parameters.keyFrame!=null) myRecorder.keyFrame = Application.application.parameters.keyFrame;
-	if(Application.application.parameters.urlForward!=null) myRecorder.urlForward = Application.application.parameters.urlForward;
-	if(Application.application.parameters.logo!=null) myRecorder.logo = Application.application.parameters.logo;
-	if(Application.application.parameters.fullScreen!=null) myRecorder.fullScreen = (Application.application.parameters.fullScreen=="true" || Application.application.parameters.fullScreen==1);
+	if(FlexGlobals.topLevelApplication.parameters.maxLength!=null) myRecorder.maxLength= FlexGlobals.topLevelApplication.parameters.maxLength;
+	if(FlexGlobals.topLevelApplication.parameters.fileName!=null) myRecorder.fileName = FlexGlobals.topLevelApplication.parameters.fileName;
+	if(FlexGlobals.topLevelApplication.parameters.width!=null) myRecorder.width= FlexGlobals.topLevelApplication.parameters.width;
+	if(FlexGlobals.topLevelApplication.parameters.height!=null) myRecorder.height= FlexGlobals.topLevelApplication.parameters.height;
+	if(FlexGlobals.topLevelApplication.parameters.server!=null) myRecorder.server= FlexGlobals.topLevelApplication.parameters.server;
+	if(FlexGlobals.topLevelApplication.parameters.fps!=null) myRecorder.fps= FlexGlobals.topLevelApplication.parameters.fps;
+	if(FlexGlobals.topLevelApplication.parameters.microRate!=null) myRecorder.microRate= FlexGlobals.topLevelApplication.parameters.microRate;
+	if(FlexGlobals.topLevelApplication.parameters.showVolume!=null) myRecorder.showVolume = (FlexGlobals.topLevelApplication.parameters.showVolume=="true" || FlexGlobals.topLevelApplication.parameters.showVolume==1);
+	if(FlexGlobals.topLevelApplication.parameters.recordingText!=null) myRecorder.recordingText= FlexGlobals.topLevelApplication.parameters.recordingText;
+	if(FlexGlobals.topLevelApplication.parameters.timeLeftText!=null) myRecorder.timeLeftText= FlexGlobals.topLevelApplication.parameters.timeLeftText;
+	if(FlexGlobals.topLevelApplication.parameters.timeLeft!=null) myRecorder.timeLeft= FlexGlobals.topLevelApplication.parameters.timeLeft;
+	if(FlexGlobals.topLevelApplication.parameters.mode!=null) myRecorder.mode= FlexGlobals.topLevelApplication.parameters.mode;
+	if(FlexGlobals.topLevelApplication.parameters.backToRecorder!=null) myRecorder.backToRecorder = (FlexGlobals.topLevelApplication.parameters.backToRecorder=="true" || FlexGlobals.topLevelApplication.parameters.backToRecorder==1);
+	if(FlexGlobals.topLevelApplication.parameters.backText!=null) myRecorder.backText= FlexGlobals.topLevelApplication.parameters.backText;
+	if(FlexGlobals.topLevelApplication.parameters.noVideo!=null) myRecorder.noVideo= (FlexGlobals.topLevelApplication.parameters.noVideo=="true" || FlexGlobals.topLevelApplication.parameters.noVideo==1);
+	if(FlexGlobals.topLevelApplication.parameters.quality!=null) myRecorder.quality= FlexGlobals.topLevelApplication.parameters.quality;
+	if(FlexGlobals.topLevelApplication.parameters.keyFrame!=null) myRecorder.keyFrame = FlexGlobals.topLevelApplication.parameters.keyFrame;
+	if(FlexGlobals.topLevelApplication.parameters.urlForward!=null) myRecorder.urlForward = FlexGlobals.topLevelApplication.parameters.urlForward;
+	if(FlexGlobals.topLevelApplication.parameters.logo!=null) myRecorder.logo = FlexGlobals.topLevelApplication.parameters.logo;
+	if(FlexGlobals.topLevelApplication.parameters.fullScreen!=null) myRecorder.fullScreen = (FlexGlobals.topLevelApplication.parameters.fullScreen=="true" || FlexGlobals.topLevelApplication.parameters.fullScreen==1);
 	//myRecorder.server="rtmp://207.134.71.251/red5recorder/";
 	//myRecorder.server="rtmp://72.249.0.158/red5recorder/";
 
@@ -114,8 +115,8 @@ public function init():void {
 	}
 	stage.addEventListener(FullScreenEvent.FULL_SCREEN, fullScreenHandler);
 		
-	Application.application.width = myRecorder.width;
-	Application.application.height = myRecorder.height;
+	FlexGlobals.topLevelApplication.width = myRecorder.width;
+	FlexGlobals.topLevelApplication.height = myRecorder.height;
 
 	recordingTimer.addEventListener( "timer" , decrementTimer );
 
@@ -140,24 +141,27 @@ public function init():void {
 	} else {
 		currentState="";
 	}
-	
+
+    ExternalInterface.addCallback('startRecord', recClicked);
+    ExternalInterface.addCallback('playMovie', replay);
+    ExternalInterface.addCallback('stopMovie', stopVideo);
+    ExternalInterface.addCallback('stopRecord', stopClicked);
+    ExternalInterface.addCallback('webcamParameters', webcamParameters);
 }
 
-private function recClicked():void { 
-	if (rec_btn.selected) {
+private function recClicked():void {
 		recordingTimer.start();
 		recordStart();
-		rec_btn.label="Stop";
-	}
-	if (!rec_btn.selected) {
-		recordingTimer.stop();
-		recordFinished();
-		rec_btn.label="Rec";
-	}
 }
+
+private function stopClicked():void {
+        recordingTimer.stop();
+        recordFinished();
+}
+
 private function videoIsComplete():void {
 	playPauseBut.selected=true;
-	playPause();
+	play();
 }
 private function thumbClicked(e:MouseEvent):void {
 	videoPlayer.playheadTime = position.value;	
@@ -169,25 +173,22 @@ public function stopVideo():void {
 	playPauseBut.selected = false;
 }
 private function replay():void {
-	rec_btn.selected=false;
-	recClicked();
 	currentState="player";
 	var s:String = myRecorder.server+myRecorder.fileName+".flv";
 	videoPlayer.source = s;
 	// and start the video !
-	playPauseBut.selected=false;
-	playPause();
+	play();
 }
 
-private function playPause():void{
-	if (playPauseBut.selected) {
-		videoPlayer.pause();
-	} else {
+private function play():void{
 		videoPlayer.play();
-	}
 }
+
+private function pause():void{
+        videoPlayer.pause();
+}
+
 private function thumbPressed():void {
-	playPauseBut.selected=true;
 	videoPlayer.pause();
 }	
 
@@ -195,13 +196,6 @@ private function thumbPressed():void {
 private function thumbReleased():void {
 	videoPlayer.playheadTime = position.value;
 	return;
-		
-	videoPlayer.playheadTime = position.value;	
-	if (playPauseBut.selected) {
-		videoPlayer.pause();
-	} else {
-		videoPlayer.play();	
-	}
 }
 
  private function formatPositionToolTip(value:Number):String{
@@ -231,14 +225,17 @@ public function recordStart():void {
 	nsOutGoing.close();
 	nsOutGoing.publish(myRecorder.fileName, "record");
 	myRecorder.hasRecorded = true;
+
+    if (ExternalInterface.available) {
+        ExternalInterface.call("recordStarted", myRecorder.fileName);
+    }
 }
 public function recordFinished():void {
 	nsOutGoing.close();
 	recordingTimer.stop();
-	if (myRecorder.urlForward!="") {
-		navigateToURL(new URLRequest(myRecorder.urlForward),"_self");
-		return;
-	}
+    if (ExternalInterface.available) {
+        ExternalInterface.call("recordFinished", myRecorder.fileName);
+    }
 }
 private function formatTime():void {
 	var minutes:int;
@@ -246,7 +243,11 @@ private function formatTime():void {
 	minutes = myRecorder.timeLeft / 60;
 	seconds = myRecorder.timeLeft % 60;
 	if (minutes<10) timeLeft="0"+ minutes+":" else timeLeft=minutes+":";
-	if (seconds<10) timeLeft=timeLeft+"0"+ seconds else timeLeft=timeLeft+seconds;	
+	if (seconds<10) timeLeft=timeLeft+"0"+ seconds else timeLeft=timeLeft+seconds;
+
+    if (ExternalInterface.available) {
+        ExternalInterface.call("camcorderTimeUpdated", myRecorder.fileName, timeLeft);
+    }
 }
 
 private  function decrementTimer( event:TimerEvent ):void {
