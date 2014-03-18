@@ -150,8 +150,16 @@ public function init():void {
 }
 
 private function recClicked():void {
+
+    if (currentState == "player")
+    {
         stopVideo();
         currentState="";
+    }
+
+    myRecorder.timeLeft = myRecorder.maxLength;
+    formatTime();
+
 		recordingTimer.start();
 		recordStart();
 }
@@ -165,13 +173,12 @@ private function videoIsComplete():void {
 	stopVideo();
 }
 private function thumbClicked(e:MouseEvent):void {
-	videoPlayer.playheadTime = position.value;	
+	//videoPlayer.playheadTime = position.value;
 }
 public function stopVideo():void {	
 	var s:String = myRecorder.server+myRecorder.fileName+".flv";
 	videoPlayer.source = s;
 	videoPlayer.stop();
-	playPauseBut.selected = false;
 }
 private function replay():void {
 	currentState="player";
@@ -195,7 +202,7 @@ private function thumbPressed():void {
 
 
 private function thumbReleased():void {
-	videoPlayer.playheadTime = position.value;
+	//videoPlayer.playheadTime = position.value;
 	return;
 }
 
@@ -271,7 +278,10 @@ private function drawMicLevel(evt:TimerEvent):void {
 
 private  function prepareStreams():void {
 	if (myRecorder.mode!="record") return;
-	nsOutGoing = new NetStream(nc); 
+	nsOutGoing = new NetStream(nc);
+
+    //nsOutGoing.bufferTime = 0;
+    //nsOutGoing.backBufferTime = 0;
 	camera=Camera.getCamera();
 	if (camera==null) {
 		Alert.show("Webcam not detected !");
