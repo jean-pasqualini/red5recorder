@@ -4,7 +4,6 @@
 	<mx:states>
 		<mx:State name="player">
 			<mx:RemoveChild target="{myWebcam}"/>
-			<mx:RemoveChild target="{micLevel}"/>
 			<mx:AddChild relativeTo="{canvas2}" position="lastChild">
 				<mx:Canvas label="player" width="100%" height="100%">
 							<mx:VideoDisplay id="videoPlayer"  mouseMove="rollOver(event)" mouseOut="rollOut(event)"
@@ -19,9 +18,7 @@
 <mx:Style source="style.css" />
 
 		<mx:Canvas label="recorder" width="100%" height="100%" verticalScrollPolicy="off" horizontalScrollPolicy="off" id="canvas2">
-			<mx:VideoDisplay id="myWebcam" left="0" right="0" top="0" bottom="53"/>
-			<mx:ProgressBar label="volume" labelPlacement="center" minimum="0" maximum="100" id="micLevel" mode="manual" visible="{myRecorder.showVolume}" bottom="0" right="0" left="0" fontWeight="normal" styleName="arial10E"/>
-			<mx:Image right="0" top="0" id="logo_img" complete="smoothImage(event)"  autoLoad="true" scaleContent="true" source="{myRecorder.logo}"/>
+			<mx:VideoDisplay id="myWebcam" left="0" right="0" top="0" bottom="0"/>
 <!--
 			<ns1:Blink y="0" width="217" text="{myRecorder.recordingText}" color="#FC0000" interval="1000" textAlign="right" fontWeight="normal" displayed="true" id="blink1" right="0" styleName="arial10E"/>
 			-->

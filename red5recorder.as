@@ -8,6 +8,7 @@ import flash.net.URLRequest;
 import flash.net.navigateToURL;
 import flash.utils.Timer;
 
+
 import mx.controls.Alert;
 //import mx.core.Application;
 import mx.core.FlexGlobals;
@@ -27,13 +28,6 @@ public var nsOutGoing:NetStream;
 public var DEBUG:Boolean = false;
 public var recordingTimer:Timer = new Timer( 1000 , 0 );
 [Bindable] public var timeLeft:String="";
-
-private function smoothImage(evt:Event):void{
-	var myBitmap:Bitmap = ((evt.target as Image).content as Bitmap);
-	if (myBitmap != null) {
-		myBitmap.smoothing = true;
-	}
-}
 
 public function fullScreenHandler(evt:FullScreenEvent):void {
 	//dispState = FlexGlobals.topLevelApplication.stage.displayState;
@@ -147,14 +141,19 @@ public function init():void {
     ExternalInterface.addCallback('stopMovie', stopVideo);
     ExternalInterface.addCallback('stopRecord', stopClicked);
     ExternalInterface.addCallback('webcamParameters', webcamParameters);
+
+    if (ExternalInterface.available) {
+        ExternalInterface.call("camcorderOnload", myRecorder.fileName);
+    }
 }
 
 private function recClicked():void {
 
-    if (currentState == "player")
+    if (currentState == "player" || currentState == "play")
     {
         stopVideo();
         currentState="";
+        myRecorder.mode = "record";
     }
 
     myRecorder.timeLeft = myRecorder.maxLength;
@@ -185,11 +184,21 @@ public function stopVideo():void {
     }
 }
 private function replay():void {
+    stopClicked();
+    /**
+    var myVideo:FLVPlayback = new FLVPlayback();
+    myVideo.source = "http://www.appartoo.com:5080/red5recorder/streams/" + myRecorder.fileName + ".flv";
+
+    addChild(myVideo);
+     */
+
 	currentState="player";
 	var s:String = myRecorder.server+myRecorder.fileName+".flv";
 	videoPlayer.source = s;
 	// and start the video !
 	play();
+    //fullScreen();
+
 }
 
 private function play():void{
@@ -235,7 +244,8 @@ private function netStatusHandler(event:NetStatusEvent):void {
 }
 public function recordStart():void {
 	nsOutGoing.close();
-	nsOutGoing.publish(myRecorder.fileName, "record");
+    //nsOutGoing.bufferTime = 0.1;
+    nsOutGoing.publish(myRecorder.fileName, "record");
 	myRecorder.hasRecorded = true;
 
     if (ExternalInterface.available) {
@@ -244,7 +254,8 @@ public function recordStart():void {
 }
 public function recordFinished():void {
 	nsOutGoing.close();
-	recordingTimer.stop();
+    //nsOutGoing.bufferTime = 60;
+    recordingTimer.stop();
     if (ExternalInterface.available) {
         ExternalInterface.call("recordFinished", myRecorder.fileName);
     }
@@ -277,7 +288,7 @@ public function webcamParameters():void {
 }
 private function drawMicLevel(evt:TimerEvent):void {
 		var ac:int=mic.activityLevel;
-		micLevel.setProgress(ac,100);
+		//micLevel.setProgress(ac,100);
 }
 
 private  function prepareStreams():void {
@@ -307,7 +318,7 @@ private  function prepareStreams():void {
 	if (mic!=null) {
         mic.rate=myRecorder.microRate;
         var timer:Timer=new Timer(50);
-		timer.addEventListener(TimerEvent.TIMER, drawMicLevel);
+		//timer.addEventListener(TimerEvent.TIMER, drawMicLevel);
 		timer.start();
 		nsOutGoing.attachAudio(mic);
 	}	
